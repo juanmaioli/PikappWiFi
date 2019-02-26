@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
   $db_server = $_POST['db_server'];
   $db_user   = $_POST['db_user'];
   $db_pass   = $_POST['db_pass'];
