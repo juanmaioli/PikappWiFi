@@ -9,7 +9,7 @@ ob_start();
 
   /* comprobar la conexión */
   if ($mysqli->connect_errno) {
-    //header( "Location: install.php?e=1" );
+    header( "Location: install.php?e=1" );
     exit();
   }
 
