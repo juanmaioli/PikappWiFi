@@ -1,9 +1,49 @@
 <?php
-$errorTest = "";
-  if( isset( $_GET['e'])) {
-    $errorTest = "<h3 class='text-center  mb_5'> <i class='fas fa-times-circle text-danger'></i>&nbsp;Error de conexion, revise la configuracion</h3>";
+
+  $db_server = $_POST['db_server'];
+  $db_user   = $_POST['db_user'];
+  $db_pass   = $_POST['db_pass'];
+  $db_name   = $_POST['db_name'];
+
+  $mysqli = new mysqli($db_server, $db_user, $db_pass , $db_name);
+
+  /* comprobar la conexión */
+  if ($mysqli->connect_errno) {
+    header( "Location: install.php?e=1" );
+    exit();
   }
+
+  /* comprobar si el servidor sigue vivo */
+  if ($mysqli->ping()) {
+    $errorTest = "Conexion Establecida con la DB";
+    creaConfig();
+
+  } else {
+    header( "Location: install.php?e=1" );
+    exit();
+  }
+
+  /* cerrar la conexión */
+  $mysqli->close();
+
+function creaConfig(){
+  $nombre_archivo = "config.php";
+  $mensaje = "<?php\n" . chr(9) . chr(36) . "db_server" . " = " . chr(34) . $GLOBALS['db_server'] . chr(34) .";\n";
+  $mensaje = $mensaje . chr(9) . chr(36) . "db_user" . " = " . chr(34) . $GLOBALS['db_user'] . chr(34) .";\n";
+  $mensaje = $mensaje . chr(9) . chr(36) . "db_pass" . " = " . chr(34) . $GLOBALS['db_pass'] . chr(34) .";\n";
+  $mensaje = $mensaje . chr(9) . chr(36) . "db_name" . " = " . chr(34) . $GLOBALS['db_name'] . chr(34) .";\n?>";
+
+  if(file_exists($nombre_archivo))
+  {unlink($nombre_archivo);}
+
+  if($archivo = fopen($nombre_archivo, "a"))
+  {
+    fwrite($archivo, $mensaje);
+    fclose($archivo);
+  }
+}
 ?>
+
 
  <!DOCTYPE html>
  <html lang="es">
@@ -39,7 +79,7 @@ $errorTest = "";
 
    <div class="row">
      <div class="col-md-3"></div>
-     <div class="col-md-6"><h1 class="text-center m-5"><?php echo $errorTest;?><h1 class="text-center"><i class="fa fa-wifi text-success"></i>&nbsp;Instalar PikApp WiFi</h1></div>
+     <div class="col-md-6"><h1 class="text-center m-5"><i class="fas fa-check-circle text-success"></i>&nbsp;<?php echo $errorTest;?></h1></div>
      <div class="col-md-3"></div>
    </div>
 
@@ -48,24 +88,21 @@ $errorTest = "";
      <div class="col-md-4">
        <form action="installdb.php" method="post" name="db_config" id="db_config">
          <div class="card">
-           <div class="card-header"><h3 class="text-center"><i class="fas fa-database text-primary"></i>&nbsp;Configurar Base de Datos</h3></div>
+           <div class="card-header"><h3 class="text-center"><i class="fas fa-database text-primary"></i>&nbsp;Agregar Usuario</h3></div>
            <div class="card-body">
              <div class="form-group">
-               <label>Servidor</label>
-               <input type="text" class="form-control" name="db_server" id="db_server" autocomplete="off" placeholder="Servidor" required>
+               <label>Email</label>
+               <input type="text" class="form-control" name="usr_name" id="usr_name" autocomplete="off" placeholder="Email" required>
              </div>
              <div class="form-group">
-               <label>Nombre Usuario Db</label>
-               <input type="text" class="form-control" name="db_user" id="db_user" autocomplete="off" placeholder="Nombre Usuario" required>
+               <label>Clave Usuario</label>
+               <input type="text" class="form-control" name="user_pass" id="user_pass" autocomplete="off" placeholder="Nombre Usuario" required>
              </div>
              <div class="form-group">
-               <label>Clave Usuario Db</label>
-               <input type="password" class="form-control" name="db_pass" id="db_pass" autocomplete="off" placeholder="Clave Usuario">
+               <label>Repetir Clave Usuario</label>
+               <input type="text" class="form-control" name="user_passrep" id="user_passrep" autocomplete="off" placeholder="Clave Usuario">
              </div>
-             <div class="form-group">
-               <label>Nombre Base de Datos</label>
-               <input type="text" class="form-control" name="db_name" id="db_name" autocomplete="off" placeholder="Nombre Base de Datos" required>
-             </div>
+
              <div class="form-group">
                <div class="form-row">
                   <div class="col-md-4"></div>
@@ -78,5 +115,6 @@ $errorTest = "";
      </div>
      <div class="col-md-4"></div>
    </div>
+
  </body>
  </html>
