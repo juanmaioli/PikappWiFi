@@ -1,0 +1,43 @@
+/**
+Info #00C0EF
+Info:hover #0099bf
+Success #00A65A
+Success:hover #008D4C
+Warning #F39C12
+Warning:hover  #DB8B0B
+Danger #DD4B39
+Danger:hover #D33724
+**/
+body{font-family:"Helvetica";}
+
+.profile-img1
+{
+    height: 25px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.profile-img2
+{
+    height: 90px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.footer {
+   position: fixed;
+   left:0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   line-height: 35px; }
+}
+
+@media (min-width: 992px) {
+  .footer {
+    width: calc(100% - 135px); } }
