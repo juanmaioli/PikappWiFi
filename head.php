@@ -14,6 +14,7 @@
       <!-- Custom fonts for this template -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
       <!-- Custom styles for this template -->
       <link href="css/style.css" rel="stylesheet">
 
@@ -59,27 +60,39 @@
     <!-- Dropdown -->
     <ul class="navbar-nav">
       <li class="nav-item dropdown text-left">
-        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Dispositivos(5)</a>
+        <a class="nav-link dropdown-toggle small" href="#" id="navbardrop" data-toggle="dropdown"><i class='fas fa-layer-group text-primary'></i>&nbsp;Casa(3)</a>
         <div class="dropdown-menu bg-dark">
-          <a href='view.php?ids=' class='dropdown-item text-white'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor1</a>
-          <a href='view.php?ids=' class='dropdown-item text-white'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor2</a>
-          <a href='view.php?ids=' class='dropdown-item text-white'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor3</a>
-          <a href='view.php?ids=' class='dropdown-item text-white'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor4</a>
-          <a href='view.php?ids=' class='dropdown-item text-white'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor5</a>
-          <a href="sensors.php"   class="dropdown-item text-white"><i class="fa fa-cogs text-warning"></i>&nbsp;Configurar</a>
+          <a href='view.php?ids=' class='dropdown-item text-white bg-dark small'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor1</a>
+          <a href='view.php?ids=' class='dropdown-item text-white bg-dark small'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor2</a>
+          <a href='view.php?ids=' class='dropdown-item text-white bg-dark small'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor3</a>
+          <a href="sensors.php"   class="dropdown-item text-white bg-dark small"><i class="fa fa-cogs text-warning"></i>&nbsp;Configurar</a>
         </div>
       </li>
     </ul>
     <!-- /Dropdown -->
+    <!-- Dropdown -->
+    <ul class="navbar-nav">
+      <li class="nav-item dropdown text-left">
+        <a class="nav-link dropdown-toggle small" href="#" id="navbardrop" data-toggle="dropdown"><i class='fas fa-layer-group text-primary'></i>&nbsp;Trabajo(2)</a>
+        <div class="dropdown-menu bg-dark">
+          <a href='view.php?ids=' class='dropdown-item text-white bg-dark small'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor4</a>
+          <a href='view.php?ids=' class='dropdown-item text-white bg-dark small'><i class='fas fa-wifi text-success'></i>&nbsp;Sensor5</a>
+          <a href="sensors.php"   class="dropdown-item text-white bg-dark small"><i class="fa fa-cogs text-warning"></i>&nbsp;Configurar</a>
+        </div>
+      </li>
+    </ul>
+    <!-- /Dropdown -->
+
+
+
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cloud-sun text-warning fa-lg"></i>&nbsp;Neuquen - 31.4°C 24% °H - Viento E a 2.44 Km/H</a></li>
+      <li class="nav-item"><a class="nav-link small" href="#"><i class="fas fa-cloud-sun text-warning fa-lg"></i>&nbsp;Neuquen - 23.6°C 48% °H - Viento E a 2.44 Km/H</a></li>
       <li class="nav-item d-none d-lg-block"><a class="nav-link" href='#'><img class="profile-img1 border border-primary" src="images/avatar.jpg"></a></li>
       <!-- <li class="nav-item"><a class="nav-link" href='#'>juanmaioli@gmail.com</a></li> -->
-      <li class="nav-item" title="Cerrar Sesion"><a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt text-danger"></i>Salir</a>
+      <li class="nav-item" title="Cerrar Sesion"><a class="nav-link small" href="logout.php"><i class="fas fa-sign-out-alt text-danger"></i>Salir</a>
       </li>
     </ul>
   </div>
 </nav>
 <!-- /Navigation -->
-<!-- Container -->
-<div class="container">
+<br><br><br>
