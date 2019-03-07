@@ -1,4 +1,5 @@
 <?php
+
 $errorTest = "";
   if( isset( $_GET['e'])) {
     $errorTest = "<h3 class='text-center  mb_5'> <i class='fas fa-times-circle text-danger'></i>&nbsp;Error de conexion, revise la configuracion</h3>";
