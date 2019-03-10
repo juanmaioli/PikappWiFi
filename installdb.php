@@ -5,6 +5,7 @@ ob_start();
   $db_pass   = $_POST['db_pass'];
   $db_name   = $_POST['db_name'];
   $db_serverport = $_POST['db_serverport'];
+  $www_host = $_SERVER['HTTP_HOST'];
   $mysqli = new mysqli($db_server, $db_user, $db_pass , $db_name,$db_serverport);
 
   /* comprobar la conexión */
@@ -32,7 +33,8 @@ function creaConfig(){
   $mensaje = $mensaje . chr(9) . chr(36) . "db_user" . " = " . chr(34) . $GLOBALS['db_user'] . chr(34) .";\n";
   $mensaje = $mensaje . chr(9) . chr(36) . "db_pass" . " = " . chr(34) . $GLOBALS['db_pass'] . chr(34) .";\n";
   $mensaje = $mensaje . chr(9) . chr(36) . "db_name" . " = " . chr(34) . $GLOBALS['db_name'] . chr(34) .";\n";
-  $mensaje = $mensaje . chr(9) . chr(36) . "db_serverport" . " = " . chr(34) . $GLOBALS['db_serverport'] . chr(34) .";\n?>";
+  $mensaje = $mensaje . chr(9) . chr(36) . "db_serverport" . " = " . chr(34) . $GLOBALS['db_serverport'] . chr(34) .";\n";
+  $mensaje = $mensaje . chr(9) . chr(36) . "www_host" . " = " . chr(34) . $GLOBALS['www_host'] . chr(34) .";\n?>";
 
   if(file_exists($nombre_archivo))
   {unlink($nombre_archivo);}
@@ -172,12 +174,12 @@ function creaTables(){
    </nav>
 
    <div class="p-5">
-     <div class='alert alert-success mt-5' role='alert'><h3 class='text-center mb_5 text-secondary'> <i class='fas fa-times-circle '></i>&nbsp;<?= $errorTest;?></h3></div>
+     <div class='alert alert-success mt-5' role='alert'><h3 class='text-center mb_5 text-secondary'> <i class='fas fa-times-circle'></i>&nbsp;<?= $errorTest;?></h3></div>
 
      <div class="row">
        <div class="col-md-4"></div>
        <div class="col-md-4">
-         <form action="installadduser.php" method="post" name="db_config" id="db_config">
+         <form action="iinstallend.php" method="post" name="db_config" id="db_config">
            <div class="card">
              <div class="card-header"><h3 class="text-center"><i class="fas fa-user text-primary"></i>&nbsp;Agregar Usuario</h3></div>
              <div class="card-body">

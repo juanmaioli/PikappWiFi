@@ -7,7 +7,7 @@ $user_pass  =  hash('sha256', $user_pass  );
 $user_token   =  hash('sha256', $user_pass  );
 $user_token   = substr($user_token , 16, 32);
 
-$user_img = "img/avatar.jpg";
+$user_img = "img/avatar.png";
 $nombre_archivo = "config.php";
 
 if(file_exists($nombre_archivo))

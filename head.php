@@ -45,7 +45,7 @@
 <!-- Logo -->
     <div  class="d-none d-lg-block" style="width:58px;height:100px;position:fixed;left:20px;bottom:5px;z-index:10000">
       <a class="navbar-brand" href="index.php">
-        <img class="profile-img2" src="images/logoch.jpg" alt="CavaWiFi" >
+        <img class="profile-img2" src="images/logoch.png" alt="CavaWiFi" >
       </a>
     </div>
 <!-- /Logo -->
@@ -87,7 +87,7 @@
 
     <ul class="navbar-nav ml-auto">
       <li class="nav-item"><a class="nav-link small" href="#"><i class="fas fa-cloud-sun text-warning fa-lg"></i>&nbsp;Neuquen - 23.6°C 48% °H - Viento E a 2.44 Km/H</a></li>
-      <li class="nav-item d-none d-lg-block"><a class="nav-link" href='#'><img class="profile-img1 border border-primary" src="images/avatar.jpg"></a></li>
+      <li class="nav-item d-none d-lg-block"><a class="nav-link" href='#'><img class="profile-img1 border border-primary" src="images/avatar.png"></a></li>
       <!-- <li class="nav-item"><a class="nav-link" href='#'>juanmaioli@gmail.com</a></li> -->
       <li class="nav-item" title="Cerrar Sesion"><a class="nav-link small" href="logout.php"><i class="fas fa-sign-out-alt text-danger"></i>Salir</a>
       </li>
