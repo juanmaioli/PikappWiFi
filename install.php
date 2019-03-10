@@ -2,7 +2,7 @@
 
 $errorTest = "";
   if( isset( $_GET['e'])) {
-    $errorTest = "<h3 class='text-center  mb_5'> <i class='fas fa-times-circle text-danger'></i>&nbsp;Error de conexion, revise la configuracion</h3>";
+    $errorTest = "<div class='alert alert-danger mt-5' role='alert'><h3 class='text-center  mb_5'> <i class='fas fa-times-circle text-danger'></i>&nbsp;Error de conexion, revise la configuracion</h3></div>";
   }
 ?>
 
@@ -38,46 +38,73 @@ $errorTest = "";
  </head>
  <body>
 
-   <div class="row">
-     <div class="col-md-3"></div>
-     <div class="col-md-6"><h1 class="text-center m-5"><?php echo $errorTest;?><h1 class="text-center"><i class="fa fa-wifi text-success"></i>&nbsp;Instalar PikApp WiFi</h1></div>
-     <div class="col-md-3"></div>
-   </div>
+   <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+     <a class="navbar-brand" href="#"><i class='fas fa-wifi text-success'></i>&nbsp;Instalar PikApp WiFi</a>
+   </nav>
+   <div class="p-5">
+     <?= $errorTest;?>
+     <div class="row mt-5">
+       <div class="col-md-4"></div>
+       <div class="col-md-4">
+         <form action="installdb.php" method="post" name="db_config" id="db_config">
+           <div class="card">
+             <div class="card-header"><h3 class="text-center"><i class="fas fa-database text-primary"></i>&nbsp;Configurar Base de Datos</h3></div>
+             <div class="card-body">
+               <div class="row">
+                 <div class="col">
+                   <label>Servidor</label>
+                   <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                       <span class="input-group-text" id="basic-addon1"><i class="fas fa-key text-secondary"></i></span>
+                     </div>
+                     <input type="text" class="form-control" name="db_server" id="db_server" autocomplete="off" placeholder="Servidor" value="localhost" required>
+                   </div>
 
-   <div class="row">
-     <div class="col-md-4"></div>
-     <div class="col-md-4">
-       <form action="installdb.php" method="post" name="db_config" id="db_config">
-         <div class="card">
-           <div class="card-header"><h3 class="text-center"><i class="fas fa-database text-primary"></i>&nbsp;Configurar Base de Datos</h3></div>
-           <div class="card-body">
-             <div class="form-group">
-               <label>Servidor</label>
-               <input type="text" class="form-control" name="db_server" id="db_server" autocomplete="off" placeholder="Servidor" required>
-             </div>
-             <div class="form-group">
-               <label>Nombre Usuario Db</label>
-               <input type="text" class="form-control" name="db_user" id="db_user" autocomplete="off" placeholder="Nombre Usuario" required>
-             </div>
-             <div class="form-group">
-               <label>Clave Usuario Db</label>
-               <input type="password" class="form-control" name="db_pass" id="db_pass" autocomplete="off" placeholder="Clave Usuario">
-             </div>
-             <div class="form-group">
-               <label>Nombre Base de Datos</label>
-               <input type="text" class="form-control" name="db_name" id="db_name" autocomplete="off" placeholder="Nombre Base de Datos" required>
-             </div>
-             <div class="form-group">
-               <div class="form-row">
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4"><button class="btn btn-primary btn-block">Guardar</button></div>
-                  <div class="col-md-4"></div>
+                 </div>
+                 <div class="col">
+                   <label>Puerto</label>
+                   <input type="text" class="form-control" name="db_serverport" id="db_serverport" autocomplete="off" placeholder="Puerto" value="3306" required>
                  </div>
                </div>
-           </div>
-       </form>
+               <div class="form-group">
+                 <label>Usuario</label>
+                 <div class="input-group mb-3">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-user text-secondary"></i></span>
+                   </div>
+                   <input type="text" class="form-control" name="db_user" id="db_user" autocomplete="off" placeholder="Nombre Usuario" required>
+                 </div>
+               </div>
+               <div class="form-group">
+                 <label>Contraseña</label>
+                 <div class="input-group mb-3">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-key text-secondary"></i></span>
+                   </div>
+                   <input type="password" class="form-control" name="db_pass" id="db_pass" autocomplete="off" placeholder="Clave Usuario">
+                 </div>
+               </div>
+               <div class="form-group">
+                 <label>Base de Datos</label>
+                 <div class="input-group mb-3">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-database text-secondary"></i></span>
+                   </div>
+                   <input type="text" class="form-control" name="db_name" id="db_name" autocomplete="off" placeholder="Nombre Base de Datos" required>
+                 </div>
+               </div>
+               <div class="form-group">
+                 <div class="form-row">
+                   <div class="col-md-4"></div>
+                   <div class="col-md-4"><button class="btn btn-primary btn-block">Guardar</button></div>
+                   <div class="col-md-4"></div>
+                 </div>
+               </div>
+             </div>
+           </form>
+         </div>
+         <div class="col-md-4"></div>
+       </div>
      </div>
-     <div class="col-md-4"></div>
-   </div>
  </body>
  </html>

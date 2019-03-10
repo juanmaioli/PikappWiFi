@@ -4,8 +4,8 @@ ob_start();
   $db_user   = $_POST['db_user'];
   $db_pass   = $_POST['db_pass'];
   $db_name   = $_POST['db_name'];
-
-  $mysqli = new mysqli($db_server, $db_user, $db_pass , $db_name);
+  $db_serverport = $_POST['db_serverport'];
+  $mysqli = new mysqli($db_server, $db_user, $db_pass , $db_name,$db_serverport);
 
   /* comprobar la conexión */
   if ($mysqli->connect_errno) {
@@ -31,7 +31,8 @@ function creaConfig(){
   $mensaje = "<?php\n" . chr(9) . chr(36) . "db_server" . " = " . chr(34) . $GLOBALS['db_server'] . chr(34) .";\n";
   $mensaje = $mensaje . chr(9) . chr(36) . "db_user" . " = " . chr(34) . $GLOBALS['db_user'] . chr(34) .";\n";
   $mensaje = $mensaje . chr(9) . chr(36) . "db_pass" . " = " . chr(34) . $GLOBALS['db_pass'] . chr(34) .";\n";
-  $mensaje = $mensaje . chr(9) . chr(36) . "db_name" . " = " . chr(34) . $GLOBALS['db_name'] . chr(34) .";\n?>";
+  $mensaje = $mensaje . chr(9) . chr(36) . "db_name" . " = " . chr(34) . $GLOBALS['db_name'] . chr(34) .";\n";
+  $mensaje = $mensaje . chr(9) . chr(36) . "db_serverport" . " = " . chr(34) . $GLOBALS['db_serverport'] . chr(34) .";\n?>";
 
   if(file_exists($nombre_archivo))
   {unlink($nombre_archivo);}
@@ -45,7 +46,7 @@ function creaConfig(){
 
 
 function creaTables(){
-    $conndb = new mysqli($GLOBALS['db_server'],$GLOBALS['db_user'],$GLOBALS['db_pass'],$GLOBALS['db_name']);
+    $conndb = new mysqli($GLOBALS['db_server'],$GLOBALS['db_user'],$GLOBALS['db_pass'],$GLOBALS['db_name'],$GLOBALS['db_serverport']);
 
     $sql = "DROP TABLE IF EXISTS pawf_data;";
     $result = $conndb->query($sql);
@@ -91,7 +92,7 @@ function creaTables(){
     $sql = "CREATE TABLE pawf_usr  (usr_id int(11) NOT NULL AUTO_INCREMENT,usr_name varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
             usr_lastname varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_email varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_image varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
             usr_pass varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_token varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
-            PRIMARY KEY (usr_id) USING BTREE) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
+            PRIMARY KEY (usr_id) USING BTREE, UNIQUE KEY usr_email (usr_email)) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_weather_1  (
             w_id int(11) NOT NULL AUTO_INCREMENT,w_report datetime(0) NULL DEFAULT NULL,w_date datetime(0) NULL DEFAULT NULL,
@@ -166,45 +167,59 @@ function creaTables(){
     <meta name="theme-color" content="#ffffff">
  </head>
  <body>
+   <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+     <a class="navbar-brand" href="#"><i class='fas fa-wifi text-success'></i>&nbsp;Instalar PikApp WiFi</a>
+   </nav>
 
-   <div class="row">
-     <div class="col-md-3"></div>
-     <div class="col-md-6"><h1 class="text-center m-5"><i class="fas fa-check-circle text-success"></i>&nbsp;<?php echo $errorTest;?></h1></div>
-     <div class="col-md-3"></div>
-   </div>
+   <div class="p-5">
+     <div class='alert alert-success mt-5' role='alert'><h3 class='text-center mb_5 text-secondary'> <i class='fas fa-times-circle '></i>&nbsp;<?= $errorTest;?></h3></div>
 
-   <div class="row">
-     <div class="col-md-4"></div>
-     <div class="col-md-4">
-       <form action="installdb.php" method="post" name="db_config" id="db_config">
-         <div class="card">
-           <div class="card-header"><h3 class="text-center"><i class="fas fa-database text-primary"></i>&nbsp;Agregar Usuario</h3></div>
-           <div class="card-body">
-             <div class="form-group">
-               <label>Email</label>
-               <input type="text" class="form-control" name="usr_name" id="usr_name" autocomplete="off" placeholder="Email" required>
-             </div>
-             <div class="form-group">
-               <label>Clave Usuario</label>
-               <input type="text" class="form-control" name="user_pass" id="user_pass" autocomplete="off" placeholder="Nombre Usuario" required>
-             </div>
-             <div class="form-group">
-               <label>Repetir Clave Usuario</label>
-               <input type="text" class="form-control" name="user_passrep" id="user_passrep" autocomplete="off" placeholder="Clave Usuario">
-             </div>
-
-             <div class="form-group">
-               <div class="form-row">
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4"><button class="btn btn-primary btn-block">Guardar</button></div>
-                  <div class="col-md-4"></div>
+     <div class="row">
+       <div class="col-md-4"></div>
+       <div class="col-md-4">
+         <form action="installadduser.php" method="post" name="db_config" id="db_config">
+           <div class="card">
+             <div class="card-header"><h3 class="text-center"><i class="fas fa-user text-primary"></i>&nbsp;Agregar Usuario</h3></div>
+             <div class="card-body">
+               <div class="form-group">
+                 <label>Email</label>
+                 <div class="input-group mb-3">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope text-secondary"></i></span>
+                   </div>
+                   <input type="text" class="form-control" name="usr_name" id="usr_name" autocomplete="off" placeholder="Email" required>
                  </div>
                </div>
-           </div>
-       </form>
+               <div class="form-group">
+                 <label>Contraseña Usuario</label>
+                 <div class="input-group mb-3">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-key text-secondary"></i></span>
+                   </div>
+                   <input type="password" class="form-control" name="user_pass" id="user_pass" autocomplete="off" placeholder="Nombre Usuario" required>
+                 </div>
+               </div>
+               <div class="form-group">
+                 <label>Repetir Contraseña Usuario</label>
+                 <div class="input-group mb-3">
+                   <div class="input-group-prepend">
+                     <span class="input-group-text" id="basic-addon1"><i class="fas fa-key text-secondary"></i></span>
+                   </div>
+                   <input type="password" class="form-control" name="user_passrep" id="user_passrep" autocomplete="off" placeholder="Clave Usuario">
+                 </div>
+               </div>
+               <div class="form-group">
+                 <div class="form-row">
+                   <div class="col-md-4"></div>
+                   <div class="col-md-4"><button class="btn btn-primary btn-block">Guardar</button></div>
+                   <div class="col-md-4"></div>
+                 </div>
+               </div>
+             </div>
+           </form>
+         </div>
+         <div class="col-md-4"></div>
+       </div>
      </div>
-     <div class="col-md-4"></div>
-   </div>
-
- </body>
- </html>
+   </body>
+   </html>
