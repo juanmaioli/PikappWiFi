@@ -28,13 +28,12 @@ unset($_COOKIE['reloginID']);
   <meta name="theme-color" content="#ffffff">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
   <style>
   body {background-image: url("https://source.unsplash.com/1920x1080/?nature");background-position: center center;background-repeat: no-repeat;background-attachment: fixed;background-size: cover;background-color:#a31b0f;}
   @media (max-width: 768px) {
-      #sidebar {margin-left: -200px;}
-      #sidebar.active {margin-left: 0;}
-      #sidebarCollapse span {display: none;}
+    #sidebar {margin-left: -200px;}
+    #sidebar.active {margin-left: 0;}
+    #sidebarCollapse span {display: none;}
   }
   fieldset {background-color:#fff;border: 3px solid #eee; !important;padding: 1.4em 1.4em 1.4em 1.4em !important;margin: 0 0 1.5em 0 !important;-webkit-border-radius: 15px;-moz-border-radius: 15px;border-radius: 15px;}
   </style>
@@ -42,14 +41,14 @@ unset($_COOKIE['reloginID']);
 <body>
 <div class="container">
     <div class="row h-100">
-        <div class="col-md-4 mx-auto  my-auto">
+        <div class="col-md-4 mx-auto my-auto">
           <fieldset>
                 <div class="text-center">
                   <img class="img-fluid" src="images/logoch.png" width="125px" alt="">
                 </div>
                 <form class="form-signin" ACTION="proc.php" name="form1" method="POST">
-	                <input name="cl_usuario" type="text" id="cl_usuario" class="form-control mt-3" placeholder="Usuario" required autofocus>
-	                <input name="cl_clave" type="password" id="cl_clave" class="form-control mt-3" placeholder="Contrase&ntilde;a" required>
+	                <input name="usr_email" type="text" id="usr_email" class="form-control mt-3" placeholder="Email" required autofocus>
+	                <input name="usr_passwd" type="password" id="usr_passwd" class="form-control mt-3" placeholder="Contrase&ntilde;a" required>
 	                <input name="formSubmit" type="hidden" id="formSubmit" value="yes">
 	                <button class="btn btn-primary btn-block mt-3" type="submit">Ingresar</button>
 									<a href='recuperar.php' align='center' ><br><center>Recuperar Clave</a><br />

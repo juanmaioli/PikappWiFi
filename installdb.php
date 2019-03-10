@@ -6,6 +6,7 @@ ob_start();
   $db_name   = $_POST['db_name'];
   $db_serverport = $_POST['db_serverport'];
   $www_host = $_SERVER['HTTP_HOST'];
+  $www_https = $_SERVER['HTTPS'];
   $mysqli = new mysqli($db_server, $db_user, $db_pass , $db_name,$db_serverport);
 
   /* comprobar la conexión */
@@ -34,7 +35,8 @@ function creaConfig(){
   $mensaje = $mensaje . chr(9) . chr(36) . "db_pass" . " = " . chr(34) . $GLOBALS['db_pass'] . chr(34) .";\n";
   $mensaje = $mensaje . chr(9) . chr(36) . "db_name" . " = " . chr(34) . $GLOBALS['db_name'] . chr(34) .";\n";
   $mensaje = $mensaje . chr(9) . chr(36) . "db_serverport" . " = " . chr(34) . $GLOBALS['db_serverport'] . chr(34) .";\n";
-  $mensaje = $mensaje . chr(9) . chr(36) . "www_host" . " = " . chr(34) . $GLOBALS['www_host'] . chr(34) .";\n?>";
+  $mensaje = $mensaje . chr(9) . chr(36) . "www_host" . " = " . chr(34) . $GLOBALS['www_host'] . chr(34) .";\n";
+  $mensaje = $mensaje . chr(9) . chr(36) . "www_https" . " = " . chr(34) . $GLOBALS['www_https'] . chr(34) .";\n?>";
 
   if(file_exists($nombre_archivo))
   {unlink($nombre_archivo);}
@@ -71,8 +73,8 @@ function creaTables(){
     $sql = "DROP TABLE IF EXISTS pawf_weather_3";
     $result = $conndb->query($sql);
 
-    $sql = "CREATE TABLE pawf_data (data_id int(11) NOT NULL AUTO_INCREMENT,data_serial int(11) NOT NULL DEFAULT 0,data_date datetime(0) NOT NULL,data_sensor1 float NOT NULL DEFAULT 0,
-            data_sensor2 float NOT NULL DEFAULT 0, PRIMARY KEY (data_id) USING BTREE) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
+    $sql = "CREATE TABLE pawf_data (data_id int(11) NOT NULL AUTO_INCREMENT,data_serial int(11) NOT NULL DEFAULT 0,data_date datetime(0) NOT NULL,data_sensor1 float(6, 2) NOT NULL DEFAULT 0,
+            data_sensor2 float(6, 2) NOT NULL DEFAULT 0, PRIMARY KEY (data_id) USING BTREE) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_group (group_id int(11) NOT NULL AUTO_INCREMENT,group_name varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,group_owner int(255) NULL DEFAULT NULL,
             PRIMARY KEY (group_id) USING BTREE) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
@@ -93,7 +95,7 @@ function creaTables(){
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_usr  (usr_id int(11) NOT NULL AUTO_INCREMENT,usr_name varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
             usr_lastname varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_email varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_image varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
-            usr_pass varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_token varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
+            usr_pass varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_token varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL, usr_timezone int(11) NOT NULL DEFAULT 0,
             PRIMARY KEY (usr_id) USING BTREE, UNIQUE KEY usr_email (usr_email)) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_weather_1  (
@@ -179,7 +181,7 @@ function creaTables(){
      <div class="row">
        <div class="col-md-4"></div>
        <div class="col-md-4">
-         <form action="iinstallend.php" method="post" name="db_config" id="db_config">
+         <form action="installend.php" method="post" name="db_config" id="db_config">
            <div class="card">
              <div class="card-header"><h3 class="text-center"><i class="fas fa-user text-primary"></i>&nbsp;Agregar Usuario</h3></div>
              <div class="card-body">

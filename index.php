@@ -14,7 +14,7 @@
         <h6 class="text-center mt-2"><span id="w_desc">Despejado</span></h6>
         <h3 class="text-center"><span id="w_temp">23.6</span> &deg;C - <span id="w_humedad">48</span> %H</h3>
       </div>
-      <div class="card-footer small text-muted"><i class="fa fa-calendar"></i>&nbsp;Act.: <span id="w_fecha">2019-03-01 12:25:47</span></div>
+      <div class="card-footer small text-muted"><i class="fa fa-calendar"></i>&nbsp;Act.: <span id="w_fecha"><?=$dateShow;?></span></div>
     </div>
   </div>
 
@@ -22,56 +22,56 @@
 	    <div class='card'>
 	      <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
 	      <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge1' width='240' height='140' >Not supported/No soportado.</canvas></div>
-	      <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+	      <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
 	    </div>
 	  </div>
     <div class='col text-center mb-4'>
       <div class='card'>
         <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
         <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge2' width='240' height='140' >Not supported/No soportado.</canvas></div>
-        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
       </div>
     </div>
     <div class='col text-center mb-4'>
       <div class='card'>
         <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
         <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge3' width='240' height='140' >Not supported/No soportado.</canvas></div>
-        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
       </div>
     </div>
     <div class='col text-center mb-4'>
       <div class='card'>
         <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
         <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge4' width='240' height='140' >Not supported/No soportado.</canvas></div>
-        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
       </div>
     </div>
     <div class='col text-center mb-4'>
       <div class='card'>
         <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
         <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge5' width='240' height='140' >Not supported/No soportado.</canvas></div>
-        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
       </div>
     </div>
     <div class='col text-center mb-4'>
       <div class='card'>
         <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
         <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge6' width='240' height='140' >Not supported/No soportado.</canvas></div>
-        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
       </div>
     </div>
     <div class='col text-center mb-4'>
       <div class='card'>
         <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
         <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge7' width='240' height='140' >Not supported/No soportado.</canvas></div>
-        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
       </div>
     </div>
     <div class='col text-center mb-4'>
       <div class='card'>
         <div class='card-header'><i class='fa fa-wifi text-success'></i> &nbsp;Dispositivo <a href='view.php?ids=1'>Servidor (Un Sensor)</a></div>
         <div class='card-body' style='width:100%;margin-left:auto;margin-right:auto;'><canvas id='gauge8' width='240' height='140' >Not supported/No soportado.</canvas></div>
-        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'>2019-03-01 12:25:47</span></div>
+        <div class='card-footer small text-muted'><i class='fa fa-calendar'></i>&nbsp;Act.: <span id='fecha1'><?=$dateShow;?></span></div>
       </div>
     </div>
 </div>
