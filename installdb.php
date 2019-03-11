@@ -66,11 +66,13 @@ function creaTables(){
     $result = $conndb->query($sql);
     $sql = "DROP TABLE IF EXISTS pawf_usr;";
     $result = $conndb->query($sql);
-    $sql = "DROP TABLE IF EXISTS pawf_weather_1";
+    $sql = "DROP TABLE IF EXISTS pawf_weather_1;";
     $result = $conndb->query($sql);
-    $sql = "DROP TABLE IF EXISTS pawf_weather_2";
+    $sql = "DROP TABLE IF EXISTS pawf_weather_2;";
     $result = $conndb->query($sql);
-    $sql = "DROP TABLE IF EXISTS pawf_weather_3";
+    $sql = "DROP TABLE IF EXISTS pawf_weather_3;";
+    $result = $conndb->query($sql);
+    $sql = "DROP VIEW IF EXISTS last_read;";
     $result = $conndb->query($sql);
 
     $sql = "CREATE TABLE pawf_data (data_id int(11) NOT NULL AUTO_INCREMENT,data_serial int(11) NOT NULL DEFAULT 0,data_date datetime(0) NOT NULL,data_sensor1 float(6, 2) NOT NULL DEFAULT 0,
@@ -94,13 +96,13 @@ function creaTables(){
             PRIMARY KEY (unity_id) USING BTREE) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_usr  (usr_id int(11) NOT NULL AUTO_INCREMENT,usr_name varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
-            usr_lastname varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_email varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_image varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
+            usr_lastname varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_email varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_image varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT 'images/avatar.png',
             usr_pass varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,usr_token varchar(255) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL, usr_timezone int(11) NOT NULL DEFAULT 0,
             PRIMARY KEY (usr_id) USING BTREE, UNIQUE KEY usr_email (usr_email)) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_weather_1  (
             w_id int(11) NOT NULL AUTO_INCREMENT,w_report datetime(0) NULL DEFAULT NULL,w_date datetime(0) NULL DEFAULT NULL,
-            w_temp float(6, 2) NULL DEFAULT 0.00,w_temp_st float(6, 2) NULL DEFAULT 0.00,w_humedad float(6, 2) NULL DEFAULT 0.00,
+            w_temp float(6, 2) NULL DEFAULT 0.00,w_temp_st float(6, 2) NULL DEFAULT 0.00,w_humidity float(6, 2) NULL DEFAULT 0.00,
             w_wind float(6, 2) NULL DEFAULT 0.00,w_dir varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
             w_rafagas float(6, 2) NULL DEFAULT 0.00,w_pressure float(10, 2) NULL DEFAULT NULL,
             w_desc varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
@@ -112,7 +114,7 @@ function creaTables(){
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_weather_2  (
             w_id int(11) NOT NULL AUTO_INCREMENT,w_report datetime(0) NULL DEFAULT NULL,w_date datetime(0) NULL DEFAULT NULL,
-            w_temp float(6, 2) NULL DEFAULT 0.00,w_temp_st float(6, 2) NULL DEFAULT 0.00,w_humedad float(6, 2) NULL DEFAULT 0.00,
+            w_temp float(6, 2) NULL DEFAULT 0.00,w_temp_st float(6, 2) NULL DEFAULT 0.00,w_humidity float(6, 2) NULL DEFAULT 0.00,
             w_wind float(6, 2) NULL DEFAULT 0.00,w_dir varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
             w_rafagas float(6, 2) NULL DEFAULT 0.00,w_pressure float(10, 2) NULL DEFAULT NULL,
             w_desc varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
@@ -124,7 +126,7 @@ function creaTables(){
     $result = $conndb->query($sql);
     $sql = "CREATE TABLE pawf_weather_3  (
             w_id int(11) NOT NULL AUTO_INCREMENT,w_report datetime(0) NULL DEFAULT NULL,w_date datetime(0) NULL DEFAULT NULL,
-            w_temp float(6, 2) NULL DEFAULT 0.00,w_temp_st float(6, 2) NULL DEFAULT 0.00,w_humedad float(6, 2) NULL DEFAULT 0.00,
+            w_temp float(6, 2) NULL DEFAULT 0.00,w_temp_st float(6, 2) NULL DEFAULT 0.00,w_humidity float(6, 2) NULL DEFAULT 0.00,
             w_wind float(6, 2) NULL DEFAULT 0.00,w_dir varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
             w_rafagas float(6, 2) NULL DEFAULT 0.00,w_pressure float(10, 2) NULL DEFAULT NULL,
             w_desc varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NULL DEFAULT NULL,
@@ -134,6 +136,15 @@ function creaTables(){
             w_puntorocio float(6, 2) NULL DEFAULT 0.00,w_uvindex int(11) NULL DEFAULT 0,
             w_ozono float(6, 2) NULL DEFAULT 0.00,PRIMARY KEY (w_id) USING BTREE) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
     $result = $conndb->query($sql);
+
+    $sql = "CREATE  VIEW last_read AS SELECT pawf_data.data_serial AS pawf_serial, pawf_data.data_date AS pawf_date, pawf_data.data_sensor1 AS pawf_sensor1, pawf_data.data_sensor2 AS pawf_sensor2,
+    pawf_sensor.sensor_name AS sensor_name, pawf_sensor.sensor_unity_1 AS sensor_unity_1, pawf_sensor.sensor_unity_2 AS sensor_unity_2,
+    pawf_sensor.sensor_cant AS sensor_cant, pawf_sensor.sensor_usr AS sensor_usr FROM (pawf_data LEFT JOIN pawf_sensor ON ((pawf_data.data_serial = pawf_sensor.sensor_id)))
+    WHERE pawf_data.data_id IN (SELECT max(pawf_data.data_id) FROM pawf_data GROUP BY pawf_data.data_serial) ORDER BY	pawf_sensor.sensor_name;"
+    $result = $conndb->query($sql);
+
+
+
     $conndb->close();
 }
 

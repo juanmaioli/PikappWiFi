@@ -1,5 +1,6 @@
 <?php
 include("config.php");
+include("pikappfunc.php");
 
 session_start();
 if ( $_SESSION["loggedin"] == false) {
@@ -19,18 +20,50 @@ else
 }
 
 
-$usuarioFoto = "images/avatar.jpg";
-$usuarioMail = $_SESSION["usuario"];
-$conn = new mysqli($db_server, $db_user,$db_pass,$db_name,$db_serverport);
-$sql = "SELECT usr_timezone FROM pawf_usr where usr_id = " . $usuarioId;
-$result = $conn->query($sql);
 
-while($row = $result->fetch_assoc())
-	{$usr_timezone  = $row["usr_timezone"] . " hours";}
 
+
+
+
+//User Data
+  $usuarioMail = $_SESSION["usuario"];
+  $conn = new mysqli($db_server, $db_user,$db_pass,$db_name,$db_serverport);
+  $sql = "SELECT usr_timezone,usr_image FROM pawf_usr where usr_id = " . $usuarioId;
+  $result = $conn->query($sql);
+
+  while($row = $result->fetch_assoc())
+  {
+    $usr_timezone  = $row["usr_timezone"] . " hours";
+    $usr_image = $row["usr_image"];
+  }
+//Date to work
   $dateShow = new DateTime(date("Y-m-d H:i:s"));
   $dateShow->modify($usr_timezone);
   $dateShow = $dateShow->format('Y-m-d H:i:s');
+//Weather Simple Report
+  $sql = "SELECT		w_temp,	w_humidity,	w_wind,	w_dir, w_icon,w_city FROM pawf_weather_2 order by w_report desc	limit 1";
+  $result = $conn->query($sql);
+
+  if (mysqli_num_rows($result) == true) {
+    while($row = $result->fetch_assoc())
+      {
+        $w_temp        = round($row["w_temp"],1);
+        $w_humidity    = intval($row["w_humidity"]);
+        $w_wind        = round($row["w_wind"],1);
+        $w_dir         = $row["w_dir"];
+        $w_icon        = $row["w_icon"];
+        $w_city        = $row["w_city"];
+      }
+
+    $w_iconToShow = iconoClima($w_icon);
+    $w_iconToShow = str_replace('fa-5x', 'fa-lg', $w_iconToShow);
+    $weatherSimple =  $w_iconToShow . " " . $w_city ." - " . $w_temp  ."&deg;C " . $w_humidity  ."% &deg;H - Viento " . $w_dir . " a " . $w_wind ." Km/H";
+  } else {
+    $weatherSimple ="<i class='far fa-question-circle text-danger'></i>&nbsp;Sin Datos de clima - &nbsp;Configurar</a>";
+  }
+
+
+$conn->close();
 ?>
 <html lang="es">
   <head>
@@ -112,8 +145,8 @@ while($row = $result->fetch_assoc())
       </ul>
       <!-- /Dropdown -->
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a class="nav-link small" href="#"><i class="fas fa-cloud-sun text-warning fa-lg"></i>&nbsp;Neuquen - 23.6°C 48% °H - Viento E a 2.44 Km/H</a></li>
-        <li class="nav-item d-none d-lg-block"><a class="nav-link" href='#'><img class="profile-img1 border border-primary" src="images/avatar.png"></a></li>
+        <li class="nav-item"><a class="nav-link small" href="#"><?=$weatherSimple;?></a></li>
+        <li class="nav-item d-none d-lg-block"><a class="nav-link" href='#'><img class="profile-img1 border border-primary" src="<?=$usr_image?>"></a></li>
         <!-- <li class="nav-item"><a class="nav-link" href='#'>juanmaioli@gmail.com</a></li> -->
         <li class="nav-item" title="Cerrar Sesion"><a class="nav-link small" href="logout.php"><i class="fas fa-sign-out-alt text-danger"></i>Salir</a>
         </li>
