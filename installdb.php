@@ -137,10 +137,10 @@ function creaTables(){
             w_ozono float(6, 2) NULL DEFAULT 0.00,PRIMARY KEY (w_id) USING BTREE) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_spanish2_ci ROW_FORMAT = Compact;";
     $result = $conndb->query($sql);
 
-    $sql = "CREATE  VIEW last_read AS SELECT pawf_data.data_serial AS pawf_serial, pawf_data.data_date AS pawf_date, pawf_data.data_sensor1 AS pawf_sensor1, pawf_data.data_sensor2 AS pawf_sensor2,
+    $sql = "CREATE VIEW last_read AS SELECT pawf_data.data_serial AS pawf_serial, pawf_data.data_date AS pawf_date, pawf_data.data_sensor1 AS pawf_sensor1, pawf_data.data_sensor2 AS pawf_sensor2,
     pawf_sensor.sensor_name AS sensor_name, pawf_sensor.sensor_unity_1 AS sensor_unity_1, pawf_sensor.sensor_unity_2 AS sensor_unity_2,
     pawf_sensor.sensor_cant AS sensor_cant, pawf_sensor.sensor_usr AS sensor_usr FROM (pawf_data LEFT JOIN pawf_sensor ON ((pawf_data.data_serial = pawf_sensor.sensor_id)))
-    WHERE pawf_data.data_id IN (SELECT max(pawf_data.data_id) FROM pawf_data GROUP BY pawf_data.data_serial) ORDER BY	pawf_sensor.sensor_name;"
+    WHERE pawf_data.data_id IN (SELECT max(pawf_data.data_id) FROM pawf_data GROUP BY pawf_data.data_serial) ORDER BY	pawf_sensor.sensor_name;";
     $result = $conndb->query($sql);
 
 

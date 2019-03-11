@@ -95,6 +95,12 @@ $errorTest = "";
                </div>
                <div class="form-group">
                  <div class="form-row">
+                   <div class="col">
+                      <div class="card bg-danger text-white text-center p-2 m-2">Se borraran todos los datos de la DB</div>
+                   </div>
+                 </div>
+               <div class="form-group">
+                 <div class="form-row">
                    <div class="col-md-4"></div>
                    <div class="col-md-4"><button class="btn btn-primary btn-block">Guardar</button></div>
                    <div class="col-md-4"></div>
