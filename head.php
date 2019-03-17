@@ -23,23 +23,14 @@ else
   exit();
 }
 
-
-
-
-
-
-
 //User Data
   $usuarioMail = $_SESSION["usuario"];
-  $conn = new mysqli($db_server, $db_user,$db_pass,$db_name,$db_serverport);
-  $sql = "SELECT usr_timezone,usr_image FROM pawf_usr where usr_id = " . $usuarioId;
-  $result = $conn->query($sql);
+  $usr_image = $_SESSION["avatar"];
+  $usr_timezone = $_SESSION["timezone"];
 
-  while($row = $result->fetch_assoc())
-  {
-    $usr_timezone  = $row["usr_timezone"] . " hours";
-    $usr_image = $row["usr_image"];
-  }
+
+  $conn = new mysqli($db_server, $db_user,$db_pass,$db_name,$db_serverport);
+
 //Date to work
   $dateShow = new DateTime(date("Y-m-d H:i:s"));
   $dateShow->modify($usr_timezone);

@@ -29,7 +29,7 @@ $usrExiste = "";
 $conn = new mysqli($db_server, $db_user,$db_pass,$db_name,$db_serverport);
 $usr_email = $conn->escape_string($usr_email);
 
-$sql = "SELECT `usr_id`, `usr_email`, `usr_pass` FROM `pawf_usr` WHERE `usr_email` = '" . $usr_email ."' and `usr_pass` = '" . $usr_passwd ."'";
+$sql = "SELECT `usr_id`, `usr_email`, `usr_pass`, usr_timezone, usr_image FROM `pawf_usr` WHERE `usr_email` = '" . $usr_email ."' and `usr_pass` = '" . $usr_passwd ."'";
 
 $result = $conn->query($sql);
 $usrExiste = mysqli_num_rows($result);
@@ -41,16 +41,20 @@ if($usrExiste == true )
   	{
   		$usr_email = $row["usr_email"];
       $usr_id = $row["usr_id"];
+      $usr_image = $row["usr_image"];
+      $usr_timezone  = $row["usr_timezone"];
     }
 
     session_start();
     $_SESSION["usuario_id"] = $usr_id;
     $_SESSION["usuario"] = $usr_email;
+    $_SESSION["avatar"] = $usr_image;
+    $_SESSION["timezone"] = $usr_timezone;
     $_SESSION["loggedin"] = true;
 
     if ($www_https == "on") {
       //echo "con https";
-      setcookie('reloginID', hash('sha256', $usr_email )  . ":".$usr_id, time()+60*60*24, '/',  $servidorName  , true, true);
+      setcookie('reloginID', hash('sha256', $usr_email )  . ":".$usr_id, time()+60*60*24, '/',  $www_host   , true, true);
     }else {
       //echo "sin https";
       setcookie('reloginID', hash('sha256', $usr_email )  . ":".$usr_id, time()+60*60*24, '/',  $www_host  , false, true);
@@ -61,12 +65,12 @@ if($usrExiste == true )
     //setcookie('reloginID', hash('sha256', $usr_email )  . ":".$usr_id, time()+60*60*24, '/',  $servidorName  , true, true);
     //setcookie('reloginID', hash('sha256', $usr_email )  . ":".$usr_id, time()+60*60*24, '/',  $www_host  , false, true);
   	header('Location: index.php');
-    echo "ok";
+    //echo "ok";
 }
 else
 {
 	 header('Location: login.php');
-   //echo "not ok";
+   echo "not ok";
 }
 
 $conn->close();
